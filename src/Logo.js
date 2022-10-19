@@ -10,4 +10,5 @@ height: 178.38323974609375px;
 width: 180px;
 margin-left: 97px;
 margin-top: 68px;
+margin-bottom: 32.62px;
 `
