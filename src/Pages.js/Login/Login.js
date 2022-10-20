@@ -6,32 +6,45 @@ import axios from "axios"
 import { useNavigate } from "react-router-dom"
 
 export default function Login() {
-const [email, setEmail] = useState("");
-const [senha, setSenha] = useState("");
+const [form, setForm] = useState({email:"", password:""})
 const navigate = useNavigate()
 
-function loginApp(e) {
-e.preventDEfault();
 
+function handleForm(e) {
+    setForm({...form, [e.target.name]: e.target.value})
+
+ }
+
+function loginApp(Event) {
+Event.preventDefault();
+}
+    
+function login(){
     const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login"
 
-    const request = axios.post(URL ,{
-        email:email,
-        senha:senha
-    })
-    request.then(() => navigate("/habitos"))
+    const promise = axios.post(URL, form)
+    promise.then((res) => {console.log(res.data)
+       navigate("habitos")})
+        
+        promise.catch((err) => {alert(err.response.data.message)})
+        console.log(form)
+    }    
 
-
-}
     return (<StyleLogin>
 
     <Logo/>
     <StyleForm>
-     <form action="/habitos">
-		 <input type="email" value={email} onChange={e => setEmail(e.target.value)} required/>
-		  <input type="password" value={senha} onChange={e => setSenha(e.target.value)} required/>
-		  <button type="submit">Login</button>
-		</form>
+   
+     <input name="email"
+         value={form.email}
+         onChange={handleForm}
+        type="email" placeholder = "email" required/>
+        <input name="password" 
+        value={form.password}
+        onChange={handleForm}
+        type="password" placeholder = "senha" required/>
+		  <button onClick={login} type="submit">Login</button>
+		
     </StyleForm>
    <Link to="/cadastro">
    <StyleLink><u><h3>Não tem uma conta? Cadastre-se!</h3></u></StyleLink>
@@ -67,6 +80,7 @@ heigth: 147px;
 display:flex;
 justify-content:center;
 margin-left:36px;
+flex-direction:column;
 input{
     width:303px;
     height:45px;

@@ -27,6 +27,7 @@ const promise = axios.post(URL, body)
 
 promise.then(() => {
     alert("Deu bom")
+    console.log(email , password)
     navigate("/")
 })
 

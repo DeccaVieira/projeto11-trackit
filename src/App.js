@@ -14,9 +14,9 @@ const [image, setImage] = useState("")
     <GlobalStyle/>
 <Routes>
 <Route path="/" element={<Login/>}/>
-<Route path="cadastro" element={<Registration setImage={setImage}/>}/>
-<Route path="habitos" element={<Routines image={image}/>}/>
-<Route path="hoje" element={<TodayRoutines image={image}/>}/>
+<Route path="/cadastro" element={<Registration setImage={setImage}/>}/>
+<Route path="/habitos" element={<Routines image={image}/>}/>
+<Route path="/hoje" element={<TodayRoutines image={image}/>}/>
 </Routes>
     </BrowserRouter>
     </>)
