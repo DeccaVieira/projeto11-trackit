@@ -1,10 +1,12 @@
 import styled from "styled-components"
-
+import { AuthContext } from "../../providers/auth";
+import react from "react";
 export default function Header() {
-
+    const {user, setUser} = react.useContext(AuthContext)
+    console.log(user.image);
     return(<StyleHeader>
     <h1>TrackIt</h1>
-  
+ <img src={user.image}/>
     </StyleHeader>)
 }
 const StyleHeader = styled.header`

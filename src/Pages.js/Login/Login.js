@@ -3,10 +3,12 @@ import { Link } from "react-router-dom"
 import styled from "styled-components"
 import Logo from "../../Logo"
 import axios from "axios"
+import { AuthContext } from "../../providers/auth";
 import { useNavigate } from "react-router-dom"
+import react from "react"
 
 export default function Login() {
-const [form, setForm] = useState({email:"", password:""})
+    const {form, setForm, setUser} = react.useContext(AuthContext)
 const navigate = useNavigate()
 
 
@@ -23,7 +25,7 @@ function login(){
     const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login"
 
     const promise = axios.post(URL, form)
-    promise.then((res) => {console.log(res.data)
+    promise.then((res) => {setUser(res.data)
        navigate("habitos")})
         
         promise.catch((err) => {alert(err.response.data.message)})
@@ -34,16 +36,17 @@ function login(){
 
     <Logo/>
     <StyleForm>
-   
+        <form onSubmit={loginApp}>  
      <input name="email"
          value={form.email}
          onChange={handleForm}
-        type="email" placeholder = "email" required/>
+         type="email" placeholder = "email" required/>
         <input name="password" 
         value={form.password}
         onChange={handleForm}
         type="password" placeholder = "senha" required/>
 		  <button onClick={login} type="submit">Login</button>
+        </form>
 		
     </StyleForm>
    <Link to="/cadastro">
