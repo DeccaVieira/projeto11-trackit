@@ -8,7 +8,7 @@ import MyRoutines from "./MyRoutines"
 export default function Routines() {
 const {form, setForm} = react.useContext(AuthContext)
 
-console.log(form);
+console.log(form), "teste";
     return (<>
    <Header/>
    <StyleRoutines>  
