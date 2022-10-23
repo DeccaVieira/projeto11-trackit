@@ -20,6 +20,7 @@ align-items:center;
 padding-left:18px;
 padding-right: 18px;
 justify-content:space-between;
+position:fixed;
 img{
 height: 51px;
 width: 51px;
