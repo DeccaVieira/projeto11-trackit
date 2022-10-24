@@ -2,8 +2,7 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 import Logo from "../../Logo"
-import axios
- from "axios"
+import axios from "axios"
  import { useNavigate } from "react-router-dom"
 
 export default function Registration() {
@@ -13,7 +12,11 @@ const [	name, setName] = useState("")
 const [image, setImage] = useState("")
 const navigate = useNavigate()
 
+
+
 function registerUser(e){
+
+
     e.preventDefault()
 const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up"
 

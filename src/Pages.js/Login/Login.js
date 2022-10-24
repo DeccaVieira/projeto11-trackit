@@ -8,50 +8,53 @@ import { useNavigate } from "react-router-dom"
 import react from "react"
 
 export default function Login() {
-    const {form, setForm, setUser} = react.useContext(AuthContext)
-const navigate = useNavigate()
+    const { setToken, form, setForm, user, setUser } = react.useContext(AuthContext)
+    const navigate = useNavigate()
 
+    console.log(user)
+    function handleForm(e) {
+        setForm({ ...form, [e.target.name]: e.target.value })
 
-function handleForm(e) {
-    setForm({...form, [e.target.name]: e.target.value})
+    }
 
- }
+    function loginApp(Event) {
+        Event.preventDefault();
+    }
 
-function loginApp(Event) {
-Event.preventDefault();
-}
-    
-function login(){
-    const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login"
+    function login() {
+        const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login"
 
-    const promise = axios.post(URL, form)
-    promise.then((res) => {setUser(res.data)
-       navigate("habitos")})
-        
-        promise.catch((err) => {alert(err.response.data.message)})
+        const promise = axios.post(URL, form)
+        promise.then((res) => {
+            setUser(res.data)
+            setToken(res.data.token)
+            navigate("/hoje")
+        })
+
+        promise.catch((err) => { alert(err.response.data.message) })
         console.log(form)
-    }    
+    }
 
     return (<StyleLogin>
 
-    <Logo/>
-    <StyleForm>
-        <form onSubmit={loginApp}>  
-     <input name="email"
-         value={form.email}
-         onChange={handleForm}
-         type="email" placeholder = "email" required/>
-        <input name="password" 
-        value={form.password}
-        onChange={handleForm}
-        type="password" placeholder = "senha" required/>
-		  <button onClick={login} type="submit">Login</button>
-        </form>
-		
-    </StyleForm>
-   <Link to="/cadastro">
-   <StyleLink><u><h3>Não tem uma conta? Cadastre-se!</h3></u></StyleLink>
-   </Link>
+        <Logo />
+        <StyleForm>
+            <form onSubmit={loginApp}>
+                <input name="email"
+                    value={form.email}
+                    onChange={handleForm}
+                    type="email" placeholder="email" required />
+                <input name="password"
+                    value={form.password}
+                    onChange={handleForm}
+                    type="password" placeholder="senha" required />
+                <button onClick={login} type="submit">Login</button>
+            </form>
+
+        </StyleForm>
+        <Link to="/cadastro">
+            <StyleLink><u><h3>Não tem uma conta? Cadastre-se!</h3></u></StyleLink>
+        </Link>
     </StyleLogin>)
 }
 const StyleLogin = styled.main`
@@ -76,7 +79,7 @@ h3{
 u{
     color: #52B6FF;  
 }
-` 
+`
 const StyleForm = styled.div`
 width: 303px;
 heigth: 147px;

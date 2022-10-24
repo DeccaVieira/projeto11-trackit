@@ -1,14 +1,21 @@
 import styled from "styled-components"
 import { AuthContext } from "../../providers/auth";
 import react from "react";
+import { useNavigate } from "react-router-dom";
 export default function Header() {
     const {user, setUser} = react.useContext(AuthContext)
-   console.log(user);
-    return(<StyleHeader>
-    <h1>TrackIt</h1>
+   const navigate = useNavigate()
+
+    return(<Main>
+    <StyleHeader>
+    <h1 onClick={()=> navigate("/habitos")}>TrackIt</h1>
  <img src={user.image}/>
-    </StyleHeader>)
+    </StyleHeader>
+    </Main>)
 }
+const Main = styled.main`
+width:375px;
+`
 const StyleHeader = styled.header`
 height: 70px;
 width: 375px;
@@ -17,16 +24,16 @@ top: 0px;
 background-color: #126BA5;
 display:flex;
 align-items:center;
-padding-left:18px;
-padding-right: 18px;
 justify-content:space-between;
 position:fixed;
+z-index:1;
 img{
 height: 51px;
 width: 51px;
-right: 3px;
+margin-right: 18px;
 top: 9px;
 border-radius: 98.5px;
+
 }
 h1{
     font-family: Playball;
@@ -35,6 +42,7 @@ font-weight: 400;
 line-height: 49px;
 text-align: left;
 color:#FFFFFF;
+margin-left:18px;
 }
 
 `

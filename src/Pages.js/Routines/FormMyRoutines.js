@@ -1,27 +1,35 @@
 import styled from "styled-components"
 import react from "react"
 import { AuthContext } from "../../providers/auth";
-import daysOfWeek from "./daysOfWeek"
 import { useState } from "react";
 import axios from "axios";
-export default function FormMyRoutines() {
-    const { routine, setRoutine, routines, setRoutines } = react.useContext(AuthContext)
 
-    const [day, setDay] = useState()
-console.log(day)
-    console.log(routines);
-    function handleRoutines(e) {
-        let novoArray = [...routines.days , day]
-        setRoutines({ ...routines, [e.target.name]: e.target.value})
+export default function FormMyRoutines(props) {
+    const { setRoutine, name, setName, daysOfWeek, token } = react.useContext(AuthContext)
+    const [days, setDays] = useState([])
+
+
+
+    function handleInput(e) {
+        setName(e.target.value)
+    }
+
+    function handleDays(id) {
+        if (days.includes(id)) {
+            setDays(days.filter(day => day !== id))
+        } else {
+            setDays([...days, id])
+        }
+
     }
 
     function addRoutine() {
         const body = {
-            name: routines.name,
-            days: routines.days
+            name: name,
+            days: days
         }
         const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits"
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjIwOCwiaWF0IjoxNjY2NDg0ODc2fQ.gWaML0lTS-kjCmmbpXKaGocCNPgxgbXQIQp0P7AZaks"
+
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -30,7 +38,8 @@ console.log(day)
         const promise = axios.post(URL, body, config);
 
         promise.then((res) => {
-            console.log("Deu bom!");
+            console.log(res.data);
+
         })
 
         promise.catch((err) => {
@@ -40,16 +49,22 @@ console.log(day)
     }
 
     return (<StyleFormMyRoutines>
-        <input name="name" value={routines.name} onChange={handleRoutines} />
-        <StyleUL>
-            {daysOfWeek.map((day) => <li onClick={() => routines.days.push(setDay((day.id)))} key={day.id}><h2>{day.name}</h2></li>
-            )}   </StyleUL>
+        <input name="name" value={name} onChange={handleInput} />
+        <StyleUl>
+
+            {daysOfWeek.map((d) => <StyleDaysOfWeek key={d.id} days={d.name} onClick={() => handleDays(d.id)}>
+                {d.name}
+            </StyleDaysOfWeek>)}
+
+        </StyleUl>
 
         <div onClick={(() => setRoutine(false))}><span>Cancelar</span></div>
         <button onClick={addRoutine}><h3>Salvar</h3></button>
 
 
     </StyleFormMyRoutines>)
+
+
 }
 const StyleFormMyRoutines = styled.div`
 width: 340px;
@@ -58,7 +73,7 @@ border-radius:5px;
 margin-top:266px;
 margin-left:-65px;
 margin-right:18px;
-background-color:red;
+background-color:#FFFFFF;
 display:flex;
 flex-direction:column;
 
@@ -69,16 +84,16 @@ margin-left: 19px;
 margin-right:18px;
 margin-top: 18px;
 border-radius: 5px;
-border:none;
+border:1px solid #D4D4D4;
 }
 button{
 height:35px;
 width:84px;
-left:270px;
+left:250px;
 top: 227px;
 border-radius: 5px;
-color:#52B6FF;
-background-color: black;
+background-color: #52B6FF;
+
 }
 h3{
     font-family: Lexend Deca;
@@ -89,34 +104,34 @@ letter-spacing: 0em;
 text-align: center;
 color:#FFFFFF;
 }
-span{width: 69px;
+span{
+    width: 69px;
     font-family: Lexend Deca;
     font-size: 16px;
     font-weight: 400;
-    line-height: 20px;
-    letter-spacing: 0em;
-    text-align: center;
     color:#52B6FF;
-    background-color:orange;
-    margin-left:110px;
-    margin-top: px;
-
-top: 727px;
+margin-left:110px;
+    margin-top: 197px;
 }
 
 `
-const StyleUL = styled.ul`
+const StyleUl = styled.div`
     display:flex;
     flex-direction:row;
     width:234px;
-    display:flex;
     align-items:center;
     margin-left:19px;
-    margin-top: 8px;
-    li{
-        width:30px;
-        height:30px;
-        background-color: lightblue;
-        border-radius:5px;
-    }
+    margin-top:8px;
+`
+const StyleDaysOfWeek = styled.div`
+height: 30px;
+width: 30px;
+border-radius: 5px;
+background-color:#FFFFFF;
+display:flex;
+justify-content:center;
+align-items:center;
+margin-right: 4px;
+color:#D4D4D4;
+border: 1px solid #D4D4D4;
 `

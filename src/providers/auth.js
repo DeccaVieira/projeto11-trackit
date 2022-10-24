@@ -8,19 +8,22 @@ export const AuthContext = react.createContext({});
 export const AuthProvider = (props) => {
     const [form, setForm] = useState({ email: "", password: "" })
     const [user, setUser] = useState({ id: "", name: "", image: "", password: "", token: "" })
-    const [routines, setRoutines] = useState({name: "", days:[1]})
+    const [name, setName] = useState("")
     const [routine, setRoutine] = useState(false)
+    const [todayList, setTodayList] = useState([])
+    const [token, setToken] = useState("")
     const [daysOfWeek, setDaysOfWeek] = useState(
-        [{ id: 0, name: "D" },
-        { id: 1, name: "S" },
-        { id: 2, name: "T" },
-        { id: 3, name: "Q" },
-        { id: 4, name: "Q" },
-        { id: 5, name: "S" },
-        { id: 6, name: "S" }
+        [{ id: 0, name: "D" , value: "DOmingo"},
+        { id: 1, name: "S" , value: "Segunda-Feira"},
+        { id: 2, name: "T" ,value: "Terça-Feira"},
+        { id: 3, name: "Q" , value:"Quarta-Feira"},
+        { id: 4, name: "Q" , value:"Quinta-Feira"},
+        { id: 5, name: "S" ,value: "Sexta-Feira"},
+        { id: 6, name: "S" ,value: "Sábado"}
         ])
+
     return (
-        <AuthContext.Provider value={{ routines, setRoutines, form, setForm, user, setUser, routine, setRoutine, daysOfWeek }}>
+        <AuthContext.Provider value={{ token, setToken, name, setName, form, setForm, user, setUser, routine, setRoutine, daysOfWeek, todayList, setTodayList }}>
             {props.children}
         </AuthContext.Provider>
     )
