@@ -5,18 +5,19 @@ import FormMyRoutines from "./FormMyRoutines";
 
 
 export default function MyRoutines() {
-    const { routine, setRoutine, routines, setRoutines, daysOfWeek } = react.useContext(AuthContext)
+    const { routine, setRoutine} = react.useContext(AuthContext)
 
 
     return (<>
         <StyleMyRoutines>
 
             <h1>Meus hábitos</h1>
-            <button onClick={(() => setRoutine(true))}><h2>+</h2></button>
+            <button data-identifier="create-habit-btn" onClick={(() => setRoutine(true))}><h2>+</h2></button>
             {routine === true &&
                 <FormMyRoutines />}
 
         </StyleMyRoutines>
+
     </>)
 }
 const StyleMyRoutines = styled.section`
@@ -24,13 +25,13 @@ height: 85px;
 width: 375px;
 left: 0px;
 margin-top: 70px;
-background-color: #FFFFFF;
 display:flex;
 align-items:center;
 justify-content:space-between;
 background-color:#E5E5E5;
 position:relative;
 h1{
+    margin-left: 17px;
     font-family: Lexend Deca;
     font-size: 23px;
     font-weight: 400;

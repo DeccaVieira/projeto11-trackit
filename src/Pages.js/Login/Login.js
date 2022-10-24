@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 import Logo from "../../Logo"
@@ -40,20 +39,20 @@ export default function Login() {
         <Logo />
         <StyleForm>
             <form onSubmit={loginApp}>
-                <input name="email"
+                <input data-identifier="input-email" name="email"
                     value={form.email}
                     onChange={handleForm}
                     type="email" placeholder="email" required />
-                <input name="password"
+                <input data-identifier="input-password" name="password"
                     value={form.password}
                     onChange={handleForm}
                     type="password" placeholder="senha" required />
-                <button onClick={login} type="submit">Login</button>
+                <button data-identifier="login-btn" onClick={login} type="submit">Login</button>
             </form>
 
         </StyleForm>
         <Link to="/cadastro">
-            <StyleLink><u><h3>Não tem uma conta? Cadastre-se!</h3></u></StyleLink>
+            <StyleLink ><u><h3 data-identifier="sign-up-action">Não tem uma conta? Cadastre-se!</h3></u></StyleLink>
         </Link>
     </StyleLogin>)
 }

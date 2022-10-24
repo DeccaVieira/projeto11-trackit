@@ -1,7 +1,6 @@
 import react from "react";
-import { Context } from "react";
 import { useState } from "react";
-//import daysOfWeek from "../Pages.js/Routines/daysOfWeek";
+
 
 export const AuthContext = react.createContext({});
 
@@ -12,7 +11,8 @@ export const AuthProvider = (props) => {
     const [routine, setRoutine] = useState(false)
     const [todayList, setTodayList] = useState([])
     const [token, setToken] = useState("")
-    const [daysOfWeek, setDaysOfWeek] = useState(
+    const [check, setCheck] = useState(false)
+    const [daysOfWeek] = useState(
         [{ id: 0, name: "D" , value: "DOmingo"},
         { id: 1, name: "S" , value: "Segunda-Feira"},
         { id: 2, name: "T" ,value: "Terça-Feira"},
@@ -23,7 +23,7 @@ export const AuthProvider = (props) => {
         ])
 
     return (
-        <AuthContext.Provider value={{ token, setToken, name, setName, form, setForm, user, setUser, routine, setRoutine, daysOfWeek, todayList, setTodayList }}>
+        <AuthContext.Provider value={{ check, setCheck,token, setToken, name, setName, form, setForm, user, setUser, routine, setRoutine, daysOfWeek, todayList, setTodayList }}>
             {props.children}
         </AuthContext.Provider>
     )

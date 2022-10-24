@@ -1,39 +1,55 @@
 import axios from "axios"
-import { useState, useEffect} from "react"
+import { useState, useEffect } from "react"
 import styled from "styled-components"
 import Header from "../Routines/Header"
 import { AuthContext } from "../../providers/auth";
 import react from "react";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
+import Footer from "../Footer";
 
 export default function TodayRoutine() {
     const [month, setMonth] = useState("")
     const [day, setDay] = useState("")
-    const [weekDay, setWeekDay] = useState("")
+    let [weekDay, setWeekDay] = useState("")
+   
+    let meses = [
+        "Janeiro",
+        "Fevereiro",
+        "Março",
+        "Abril",
+        "Maio",
+        "Junho",
+        "Julho",
+        "Agosto",
+        "Setembro",
+        "Outubro",
+        "Novembro",
+        "Dezembro"
+      ];
+      var dias = ["domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"]
+      var diaSemana = dias[dayjs().date() % 7];
+      var mes = meses[dayjs().month()];
 
+    const { todayList, setTodayList, token} = react.useContext(AuthContext)
 
-console.log(day)
-
-    const {todayList,setTodayList,token, daysOfWeek} = react.useContext(AuthContext)
-    console.log(dayjs().month())
-    console.log(dayjs().date()) 
-    console.log(dayjs().day())
     const navigate = useNavigate()
+
+
 
     useEffect(() => {
         if (token === "") {
             navigate("/")
         }
-    }, []) 
+    }, [])
     useEffect(() => {
-     
-getTodayRoutines()
+
+        getTodayRoutines()
 
     }, [])
-    function getTodayRoutines(){
+    function getTodayRoutines() {
         const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today"
-        
+
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -41,11 +57,12 @@ getTodayRoutines()
         }
         const promise = axios.get(URL, config)
 
+
         promise.then((res) => {
             setTodayList(res.data)
-         setDay(dayjs().day())
-         setWeekDay(dayjs().date())
-         setMonth(dayjs().month())
+            setDay(dayjs().day())
+            setWeekDay(dayjs().date())
+            setMonth(dayjs().month())
         })
 
         promise.catch((err) => {
@@ -55,7 +72,7 @@ getTodayRoutines()
 
     function doneRoutine(id) {
         const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`
-        
+
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -64,15 +81,15 @@ getTodayRoutines()
         const promise = axios.post(URL, {}, config);
 
 
-        promise.then((res) =>  getTodayRoutines())
+        promise.then((res) => getTodayRoutines())
 
         promise.catch((err) => { alert(err.response.data.message) })
-        
+
     }
-    
+
     function removeRoutine(id) {
         const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`
-        
+
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -81,31 +98,33 @@ getTodayRoutines()
         const promise = axios.post(URL, {}, config);
 
 
-        promise.then((res) =>  getTodayRoutines())
+        promise.then((res) => getTodayRoutines())
 
         promise.catch((err) => { alert(err.response.data.message) })
-       console.log(dayjs().date()) 
+        console.log(dayjs().date())
     }
 
 
 
     return (<Main>
         <Header />
-        <DateToday><h2>{day}</h2><h2>{weekDay}</h2><h2>{month}</h2></DateToday>
+        <DateToday><h2>{diaSemana},</h2><h2>{weekDay}/</h2><h2>{mes}</h2></DateToday>
         {todayList.map((t) => (<TodayRoutines key={t.id} done={t.done} currentSequence={t.currentSequence} highestSequence={t.highestSequence}>
             <Routine><h1>{t.name}</h1>
                 <h3>Sequência atual: {t.currentSequence} dias</h3>
                 <h3>Seu recorde: {t.highestSequence} dias</h3></Routine>
-                
-            {t.done === true ? <StyleDone><ion-icon name="checkbox-sharp" onClick={()=> removeRoutine(t.id)}></ion-icon></StyleDone> :
-                <StyleND><ion-icon name="checkbox-sharp" onClick={()=> doneRoutine(t.id)}></ion-icon></StyleND>}
-            
+
+            {t.done === true ? <StyleDone><ion-icon data-identifier="done-habit-btn" name="checkbox-sharp" onClick={() => removeRoutine(t.id)}></ion-icon></StyleDone> :
+                <StyleND><ion-icon data-identifier="done-habit-btn" name="checkbox-sharp" onClick={() => doneRoutine(t.id)}></ion-icon></StyleND>}
+
 
         </TodayRoutines>))}
+        <Footer />
     </Main>)
 }
 const Main = styled.main`
 width:375px;
+height:527px;
 background-color:#E5E5E5;
 `
 const TodayRoutines = styled.div`
@@ -165,6 +184,7 @@ font-size: 23px;
 font-weight: 400;
 color:#126BA5;
 margin-top:70px;
+margin-left: 17px;
 display:flex;
 `
 const Routine = styled.div`

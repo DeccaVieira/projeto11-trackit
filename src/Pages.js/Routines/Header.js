@@ -3,14 +3,14 @@ import { AuthContext } from "../../providers/auth";
 import react from "react";
 import { useNavigate } from "react-router-dom";
 export default function Header() {
-    const {user, setUser} = react.useContext(AuthContext)
-   const navigate = useNavigate()
+    const { user} = react.useContext(AuthContext)
+    const navigate = useNavigate()
 
-    return(<Main>
-    <StyleHeader>
-    <h1 onClick={()=> navigate("/habitos")}>TrackIt</h1>
- <img src={user.image}/>
-    </StyleHeader>
+    return (<Main>
+        <StyleHeader>
+            <h1 onClick={() => navigate("/hoje")}>TrackIt</h1>
+            <img data-identifier="avatar" src={user.image} alt="user"/>
+        </StyleHeader>
     </Main>)
 }
 const Main = styled.main`

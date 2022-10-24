@@ -6,9 +6,10 @@ import styled from "styled-components"
 import MyRoutines from "./MyRoutines"
 import axios from "axios";
 import { useNavigate } from "react-router-dom"
+import Footer from "../Footer";
 
 export default function Routines() {
-    const { form, setForm, token ,daysOfWeek} = react.useContext(AuthContext)
+    const { token, daysOfWeek } = react.useContext(AuthContext)
     const [routineList, setRoutineList] = useState([])
     const navigate = useNavigate()
     useEffect(() => {
@@ -16,16 +17,16 @@ export default function Routines() {
             navigate("/")
         }
     }, [])
-
+    console.log(routineList, "routineList")
     useEffect(() => {
 
-getRoutines()     
+        getRoutines()
 
 
     }, [])
 
-function getRoutines(){
-    const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits"
+    function getRoutines() {
+        const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits"
 
         const config = {
             headers: {
@@ -42,7 +43,7 @@ function getRoutines(){
         promise.catch((err) => {
             console.log(err.response.message)
         })
-}
+    }
     function removeRoutines(id) {
         const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`
 
@@ -60,25 +61,31 @@ function getRoutines(){
     }
     console.log(routineList)
 
-    return (<>
+    return (<StyleMain>
         <Header />
         <MyRoutines />
-        <StyleRoutines>
-            <ul>
-                {routineList.map((rlist) => <StyleRoutineList key={rlist.id} name={rlist.name} days={rlist.days}>
-                    <h1>{rlist.name}</h1>
-                    <Flex>{daysOfWeek.map((day) => 
-                   
-                    <Done key ={day.id}><h1>{day.name}</h1></Done> 
-                  
-                    ) }</Flex>
- <ion-icon name="trash-outline"onClick={() => removeRoutines(rlist.id)}></ion-icon>
-                </StyleRoutineList>)}
+        {routineList.length === 0 ?
+            <StyleNotice><h4 data-identifier="no-habit-message" >Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</h4></StyleNotice>
+            :
+            <StyleRoutines>
+                <ul>
+                    {routineList.map((rlist) => <StyleRoutineList key={rlist.id} name={rlist.name} days={rlist.days}>
+                        <h1 data-identifier="habit-name" >{rlist.name}</h1>
+                        <Flex>{daysOfWeek.map((day) =>
 
-            </ul>
-            <StyleNotice><h4>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</h4></StyleNotice>
-        </StyleRoutines>
-    </>)
+                            <Done key={day.id}><h1>{day.name}</h1></Done>
+
+                        )}</Flex>
+                        <Trash><ion-icon data-identifier="delete-habit-btn" name="trash-outline" onClick={() => removeRoutines(rlist.id)}></ion-icon></Trash>
+                    </StyleRoutineList>)}
+
+                </ul>
+
+
+            </StyleRoutines>
+        }
+        <Footer />
+    </StyleMain>)
 }
 const StyleRoutines = styled.div`
 width:375px;
@@ -89,13 +96,16 @@ background-color:#E5E5E5;
 margin-bottom:10px;
 align-items:center;
 overflow-y: scroll;
+
 `
 const StyleNotice = styled.section`
 height: 74px;
 width: 338px;
 left: 23px;
-margin-top: 360px;
+margin-top: 28px;
+margin-left: 17px;
 border-radius: nullpx;
+background-color: #E5E5E5;
 h4{
     font-family: Lexend Deca;
 font-size: 18px;
@@ -148,15 +158,14 @@ color:#CFCFCF;
 
 }
 `
-const NDone = styled.button`
-width:30px;
-height:30px;
-background-color:#FFFFFF;
-h1{
-    font-family: Lexend Deca;
-font-size: 20px;
-font-weight: 400;
-line-height: 25px;
-color:#CFCFCF;
-}
+
+const StyleMain = styled.main`
+background-color: #E5E5E5;
+width:375px;
+height:527px;
+`
+const Trash = styled.div`
+margin-left:10px;
+width:15px;
+height:15px;
 `

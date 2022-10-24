@@ -6,6 +6,7 @@ import Routines from "./Pages.js/Routines/Routines"
 import TodayRoutines from "./Pages.js/TodayRoutines/TodayRoutines"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { useState } from "react"
+import Historic from "./Pages.js/Historic"
 
 
 
@@ -23,6 +24,7 @@ export default function App() {
             <Route path="/cadastro" element={<Registration setImage={setImage} />} />
             <Route path="/habitos" element={<Routines image={image} />} />
             <Route path="/hoje" element={<TodayRoutines image={image} />} />
+            <Route path="/historico" element={<Historic />} />
         </Routes>
     </BrowserRouter>
     </>)

@@ -3,68 +3,68 @@ import { Link } from "react-router-dom"
 import styled from "styled-components"
 import Logo from "../../Logo"
 import axios from "axios"
- import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 export default function Registration() {
-const [email, setEmail] = useState("")
-const [password, setPassword] = useState("")
-const [	name, setName] = useState("")
-const [image, setImage] = useState("")
-const navigate = useNavigate()
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [name, setName] = useState("")
+    const [image, setImage] = useState("")
+    const navigate = useNavigate()
 
 
 
-function registerUser(e){
+    function registerUser(e) {
 
 
-    e.preventDefault()
-const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up"
+        e.preventDefault()
+        const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up"
 
-const body = {
-    email: email,
-	name: name,
-	image: image,
-	password: password
-}
-const promise = axios.post(URL, body)
+        const body = {
+            email: email,
+            name: name,
+            image: image,
+            password: password
+        }
+        const promise = axios.post(URL, body)
 
-promise.then(() => {
-    alert("Deu bom")
-    console.log(email , password)
-    navigate("/")
-})
+        promise.then(() => {
+            alert("Deu bom")
+            console.log(email, password)
+            navigate("/")
+        })
 
-promise.catch((err) => {
-    alert(err.response.data.message)
-})
-}
+        promise.catch((err) => {
+            alert(err.response.data.message)
+        })
+    }
 
     return (<StyleRegistration>
-    <Logo/>
-    <StyleFormRegistration>
-    <form onSubmit={registerUser}>
-        <input 
-         value={email}
-         onChange={e => setEmail(e.target.value)}
-        type="email" placeholder = "email" required/>
-        <input 
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        type="password" placeholder = "senha" required/>
-        <input 
-         value={name}
-         onChange={e => setName(e.target.value)}
-        type="text" placeholder = "nome" required/>
-        <input 
-         value={image}
-         onChange={e => setImage(e.target.value)}
-        type="url" placeholder = "foto" required/>
-        <button type="submit"><h2>Cadastrar</h2></button>
-    </form>
-    </StyleFormRegistration>
-    <Link to="/">
-    <StyleLink><u><h3>Já tem uma conta? Faça login!</h3></u></StyleLink>
-    </Link>
+        <Logo />
+        <StyleFormRegistration>
+            <form onSubmit={registerUser}>
+                <input data-identifier="input-email"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    type="email" placeholder="email" required />
+                <input data-identifier="input-password"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    type="password" placeholder="senha" required />
+                <input data-identifier="input-name"
+                    value={name}
+                    onChange={e => setName(e.target.value)}
+                    type="text" placeholder="nome" required />
+                <input data-identifier="input-photo"
+                    value={image}
+                    onChange={e => setImage(e.target.value)}
+                    type="url" placeholder="foto" required />
+                <button type="submit"><h2>Cadastrar</h2></button>
+            </form>
+        </StyleFormRegistration>
+        <Link to="/">
+            <StyleLink><u><h3 data-identifier="back-to-login-action">Já tem uma conta? Faça login!</h3></u></StyleLink>
+        </Link>
     </StyleRegistration>)
 }
 const StyleRegistration = styled.main`
@@ -90,7 +90,7 @@ u{
     color: #52B6FF;  
 }
 `
-const StyleFormRegistration =styled.div`
+const StyleFormRegistration = styled.div`
 width: 303px;
 height: 249px;
 display:flex;

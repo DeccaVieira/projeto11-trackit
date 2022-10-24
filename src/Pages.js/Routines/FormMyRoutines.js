@@ -15,10 +15,13 @@ export default function FormMyRoutines(props) {
     }
 
     function handleDays(id) {
+        
         if (days.includes(id)) {
             setDays(days.filter(day => day !== id))
+
         } else {
             setDays([...days, id])
+
         }
 
     }
@@ -49,10 +52,10 @@ export default function FormMyRoutines(props) {
     }
 
     return (<StyleFormMyRoutines>
-        <input name="name" value={name} onChange={handleInput} />
+        <input data-identifier="input-habit-name" name="name" value={name} onChange={handleInput} />
         <StyleUl>
 
-            {daysOfWeek.map((d) => <StyleDaysOfWeek key={d.id} days={d.name} onClick={() => handleDays(d.id)}>
+            {daysOfWeek.map((d) => <StyleDaysOfWeek data-identifier="week-day-btn" key={d.id} days={d.name} onClick={() => handleDays(d.id)}>
                 {d.name}
             </StyleDaysOfWeek>)}
 
