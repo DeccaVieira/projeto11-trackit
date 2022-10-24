@@ -12,7 +12,7 @@ export default function Routines() {
 //console.log(form)
 useEffect(() => {
 const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits"
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjIwOCwiaWF0IjoxNjY2MzkwMDA0fQ.q7H2S89je-EKcJChLU6cq0u8n8bjUL1-_ujqFLEKpPo"
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjIwOCwiaWF0IjoxNjY2NDg0ODc2fQ.gWaML0lTS-kjCmmbpXKaGocCNPgxgbXQIQp0P7AZaks"
 const config ={
     headers: {
         Authorization: `Bearer ${token}`

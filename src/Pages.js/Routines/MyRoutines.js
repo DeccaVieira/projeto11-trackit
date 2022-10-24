@@ -9,37 +9,7 @@ import FormMyRoutines from "./FormMyRoutines";
 export default function MyRoutines() {
     const {routine, setRoutine, routines, setRoutines, daysOfWeek} = react.useContext(AuthContext)
 
-console.log(daysOfWeek)
 
-/*function handleForm(e) {
-    setRoutines({...routines, [e.target.name]: e.target.value})
-
- }
-
-    function addRoutine(){
-        //const body = {
-           // name: name.name,
-            //days: name.days // segunda, quarta e sexta         }
-        const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits"
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjIwOCwiaWF0IjoxNjY2MzkwMDA0fQ.q7H2S89je-EKcJChLU6cq0u8n8bjUL1-_ujqFLEKpPo"
-        const config = {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }
-        const promise = axios.post(URL, config);
-
-        promise.then((res) => {
-            console.log(res.data);
-        })
-        
-        promise.catch((err) => {
-            alert(err.response.data.message)
-        })
-
-    }*/
-    //"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjIwOCwiaWF0IjoxNjY2MzEyNDYyfQ.NKyWa0PL39kNXjXGDbGrxiJ8WC1MxPfLzLEaDxX3gpQ"
-    console.log(routine)
     return (<>
     <StyleMyRoutines>
         <h1>Meus hábitos</h1>
